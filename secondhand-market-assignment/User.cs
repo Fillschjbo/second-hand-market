@@ -5,6 +5,8 @@ public class User
     public string Username { get; set; }
     private string Password { get; set; }
     
+    public List<Listing> Listings { get; } = new();
+    
     public User (string username, string password)
     {
         Username = username;
