@@ -1,0 +1,15 @@
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/bin/Debug/net10.0/secondhand-market-assignment
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/bin/Debug/net10.0/secondhand-market-assignment.deps.json
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/bin/Debug/net10.0/secondhand-market-assignment.runtimeconfig.json
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/bin/Debug/net10.0/secondhand-market-assignment.dll
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/bin/Debug/net10.0/secondhand-market-assignment.pdb
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.GeneratedMSBuildEditorConfig.editorconfig
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.AssemblyInfoInputs.cache
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.AssemblyInfo.cs
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.csproj.CoreCompileInputs.cache
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.sourcelink.json
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.dll
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/refint/secondhand-market-assignment.dll
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.pdb
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/secondhand-market-assignment.genruntimeconfig.cache
+/Users/fillip/RiderProjects/secondhand-market-assignment/secondhand-market-assignment/obj/Debug/net10.0/ref/secondhand-market-assignment.dll
