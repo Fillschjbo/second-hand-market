@@ -50,4 +50,14 @@ public class Marketplace
             .Where(l => l.Status == ListingStatus.Available && l.Category == category)
             .ToList();
     }
+
+    public List<Listing> SearchListings(string searchTerm)
+    {
+        var lower = searchTerm.ToLower();
+        return _listings
+            .Where(l => l.Status == ListingStatus.Available &&
+                        (l.Title.ToLower().Contains(lower) || 
+                         l.Description.ToLower().Contains(lower)))
+            .ToList();
+    }
 }

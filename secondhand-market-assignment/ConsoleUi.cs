@@ -154,6 +154,7 @@ public class ConsoleUi
         {
             case 1: HandleCreateListing(); break;
             case 2 : HandleBrowseListings(); break;
+            case 3: HandleSearchListingss(); break;
             case 5: HandleLogout(); break;
         }
     }
@@ -203,6 +204,16 @@ public class ConsoleUi
         }
         ShowListingsTable(listings);
     }
+
+    private void HandleSearchListingss()
+    {
+        PrintHeader("Search Listings");
+        string SearchTerm = ReadRequiredString("Search Term: ");
+        
+        var listings = _marketplace.SearchListings(SearchTerm);
+        ShowListingsTable(listings);
+    }
+    
     //show listings
     private void ShowListingsTable(List<Listing> listings)
     {
@@ -223,8 +234,12 @@ public class ConsoleUi
         }
 
         Console.WriteLine();
-        int choice = ReadIntInRange("Select a listing to view: ", 0, listings.Count);
-        if (choice == 0) return;
+        int choice = ReadIntInRange("Select a listing to view (press 0 to go back): ", 0, listings.Count);
+        if (choice == 0)
+        {
+            Console.WriteLine("No listings found!");
+            return;
+        }
         
         ShowListingDetails(listings[choice -1]);
     }
