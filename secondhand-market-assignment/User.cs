@@ -10,6 +10,8 @@ public class User
     public List<Transaction> Purchases { get; } = new();
 
     public List<Transaction> Sales { get; } = new();
+
+    public List<Review> ReviewsReceived { get; } = new();
     
     public User (string username, string password)
     {
@@ -20,5 +22,12 @@ public class User
     public bool CheckPassword(string password)
     {
         return password == Password;
+    }
+
+    public double? GetAverageRating()
+    {
+        if (ReviewsReceived.Count == 0)
+            return null;
+        return ReviewsReceived.Average(r => r.Rating);
     }
 }

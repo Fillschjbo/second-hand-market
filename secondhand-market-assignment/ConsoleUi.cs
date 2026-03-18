@@ -294,10 +294,33 @@ public class ConsoleUi
         {
             var transaction = _marketplace.Purchase(_currentUser!,  listing);
             Console.WriteLine("Purchase successful!");
+
+            Console.WriteLine("would you like to leave a review? (Y/N)");
+            string? answer = Console.ReadLine()?.Trim().ToUpper();
+            if (answer == "Y")
+                HandleLeaveReview(transaction);
         }
         catch (InvalidOperationException e)
         {
             Console.WriteLine($"{listing.Title} failed to purchase listing. {e.Message}");}
+    }
+
+    private void HandleLeaveReview(Transaction transaction)
+    {
+        int rating = ReadIntInRange("Rating (1-6) ", 1,6);
+        Console.WriteLine("Leave a comment or press enter to skip: ");
+        string? comment = Console.ReadLine()?.Trim();
+        if (string.IsNullOrEmpty(comment)) comment = null;
+
+        try
+        {
+            _marketplace.LeaveReview(_currentUser!, transaction, rating, comment);
+            Console.WriteLine("Review submitted! Thank you!");
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.WriteLine($"Could not submit review: {e.Message}");
+        }
     }
     
 }
