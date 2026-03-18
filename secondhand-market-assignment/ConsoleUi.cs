@@ -226,6 +226,45 @@ public class ConsoleUi
         int choice = ReadIntInRange("Select a listing to view: ", 0, listings.Count);
         if (choice == 0) return;
         
+        ShowListingDetails(listings[choice -1]);
+    }
 
+    private void ShowListingDetails(Listing listing)
+    {
+        PrintHeader(listing.Title);
+        Console.WriteLine($"Seller: {listing.Seller.Username}");
+        Console.WriteLine($"Category: {listing.Category}");
+        Console.WriteLine($"Condition: {listing.Condition}");
+        Console.WriteLine($"Price: {listing.Price}");
+        Console.WriteLine($"Description: {listing.Description}");
+        Console.WriteLine();
+        
+        bool isOwnListing = listing.Seller.Username == _currentUser!.Username;
+        if (isOwnListing)
+        {
+            Console.WriteLine($"Own listing: {listing.Title}");
+            Console.WriteLine("1. Remove listing");
+            Console.WriteLine("2. Go back");
+            int choice = ReadIntInRange("Select an option: ", 1, 2);
+            if (choice == 1)
+                HandleRemoveListing(listing);
+            return;
+        }
+
+        Console.WriteLine("1. Buy item");
+        Console.WriteLine("2. Go Back");
+        int buyChoice = ReadIntInRange("Select an option: ", 1, 2);
+        if (buyChoice == 1) HandlePurchase(listing);
+        return;
+    }
+
+    private void HandlePurchase(Listing listing)
+    {
+        Console.WriteLine("purchase");
+    }
+
+    private void HandleRemoveListing(Listing listing)
+    {
+        Console.WriteLine("remove listing");
     }
 }
