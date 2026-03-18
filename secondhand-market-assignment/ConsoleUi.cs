@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 
 namespace secondhand_market_assignment;
@@ -177,5 +178,28 @@ public class ConsoleUi
         var listing = _marketplace.CreateListing(_currentUser!, title, description, category, condition, price);
         Console.WriteLine($"Listing \"{listing.Title}\" created successfully!");
 
+    }
+    
+    //Browse Listings
+    
+    private void HandleBrowseListings()
+    {
+        PrintHeader("Browse Listings");
+        Console.WriteLine("1. Browse All Listings");
+        Console.WriteLine("2. Filter By Category");
+        
+        int choice  = ReadIntInRange("Select an option: ", 1, 2);
+
+        List<Listing> listings;
+        if (choice == 1)
+        {
+            listings = _marketplace.GetAvailableListings();
+        }
+        else
+        {
+            Category category = ReadEnum<Category>("Select Category: ");
+            listings = _marketplace.GetListingByCategory(category);
+        }
+        
     }
 }

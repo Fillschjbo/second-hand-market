@@ -4,6 +4,7 @@ public class Marketplace
 {
     //user management
     private readonly List<User> _users = new ();
+    private readonly List<Listing> _listings = new();
 
     public User Register(string username, string password)
     {
@@ -32,5 +33,20 @@ public class Marketplace
         var listing = new Listing(title, description, category, condition, price, seller);
         seller.Listings.Add(listing);
         return listing;
+    }
+    
+    //browse & sort
+    public List<Listing> GetAvailableListings()
+    {
+        return _listings
+            .Where(l => l.Status == ListingStatus.Available)
+            .ToList();
+    }
+    
+    public List<Listing> GetListingByCategory(Category category)
+    {
+        return _listings
+            .Where(l => l.Status == ListingStatus.Available && l.Category != category)
+            .ToList();
     }
 }
