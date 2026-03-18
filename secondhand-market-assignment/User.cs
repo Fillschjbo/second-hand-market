@@ -23,4 +23,11 @@ public class User
     {
         return password == Password;
     }
+
+    public double? GetAverageRating()
+    {
+        if (ReviewsReceived.Count == 0)
+            return null;
+        return ReviewsReceived.Average(r => r.Rating);
+    }
 }
