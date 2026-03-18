@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 
 namespace secondhand_market_assignment;
@@ -152,6 +153,8 @@ public class ConsoleUi
         switch (choice)
         {
             case 1: HandleCreateListing(); break;
+            case 2 : HandleBrowseListings(); break;
+            case 3: HandleSearchListingss(); break;
             case 5: HandleLogout(); break;
         }
     }
@@ -177,5 +180,106 @@ public class ConsoleUi
         var listing = _marketplace.CreateListing(_currentUser!, title, description, category, condition, price);
         Console.WriteLine($"Listing \"{listing.Title}\" created successfully!");
 
+    }
+    
+    //Browse Listings
+    
+    private void HandleBrowseListings()
+    {
+        PrintHeader("Browse Listings");
+        Console.WriteLine("1. Browse All Listings");
+        Console.WriteLine("2. Filter By Category");
+        
+        int choice  = ReadIntInRange("Select an option: ", 1, 2);
+
+        List<Listing> listings;
+        if (choice == 1)
+        {
+            listings = _marketplace.GetAvailableListings();
+        }
+        else
+        {
+            Category category = ReadEnum<Category>("Select Category: ");
+            listings = _marketplace.GetListingByCategory(category);
+        }
+        ShowListingsTable(listings);
+    }
+
+    private void HandleSearchListingss()
+    {
+        PrintHeader("Search Listings");
+        string SearchTerm = ReadRequiredString("Search Term: ");
+        
+        var listings = _marketplace.SearchListings(SearchTerm);
+        ShowListingsTable(listings);
+    }
+    
+    //show listings
+    private void ShowListingsTable(List<Listing> listings)
+    {
+        if (listings.Count == 0)
+        {
+            Console.WriteLine("No listings found!");
+            return;  
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"{"#", 4} {"Title", -25} {"Category", -22} {"Condition", -10} {"Price", 8}");
+        Console.WriteLine(new string('-', 75));
+
+        for (int i = 0; listings.Count > i; i++)
+        {
+            var l =  listings[i];
+            Console.WriteLine($"{i + 1, -4} {l.Title, -25} {l.Category, -22} {l.Condition, -10} {l.Price, 5:N0} kr");
+        }
+
+        Console.WriteLine();
+        int choice = ReadIntInRange("Select a listing to view (press 0 to go back): ", 0, listings.Count);
+        if (choice == 0)
+        {
+            Console.WriteLine("No listings found!");
+            return;
+        }
+        
+        ShowListingDetails(listings[choice -1]);
+    }
+
+    private void ShowListingDetails(Listing listing)
+    {
+        PrintHeader(listing.Title);
+        Console.WriteLine($"Seller: {listing.Seller.Username}");
+        Console.WriteLine($"Category: {listing.Category}");
+        Console.WriteLine($"Condition: {listing.Condition}");
+        Console.WriteLine($"Price: {listing.Price}");
+        Console.WriteLine($"Description: {listing.Description}");
+        Console.WriteLine();
+        
+        bool isOwnListing = listing.Seller.Username == _currentUser!.Username;
+        if (isOwnListing)
+        {
+            Console.WriteLine($"Own listing: {listing.Title}");
+            Console.WriteLine("1. Remove listing");
+            Console.WriteLine("2. Go back");
+            int choice = ReadIntInRange("Select an option: ", 1, 2);
+            if (choice == 1)
+                HandleRemoveListing(listing);
+            return;
+        }
+
+        Console.WriteLine("1. Buy item");
+        Console.WriteLine("2. Go Back");
+        int buyChoice = ReadIntInRange("Select an option: ", 1, 2);
+        if (buyChoice == 1) HandlePurchase(listing);
+        return;
+    }
+
+    private void HandlePurchase(Listing listing)
+    {
+        Console.WriteLine("purchase");
+    }
+
+    private void HandleRemoveListing(Listing listing)
+    {
+        Console.WriteLine("remove listing");
     }
 }
