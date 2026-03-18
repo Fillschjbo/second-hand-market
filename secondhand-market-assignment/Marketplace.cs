@@ -35,6 +35,15 @@ public class Marketplace
         _listings.Add(listing);
         return listing;
     }
+
+    public void RemoveListing(User requestingUser, Listing listing)
+    {
+        if (listing.Seller.Username != requestingUser.Username)
+            throw new InvalidOperationException("you can only remove your own listings");
+        
+        _listings.Remove(listing);
+        requestingUser.Listings.Remove(listing);
+    }
     
     //browse & sort
     public List<Listing> GetAvailableListings()
