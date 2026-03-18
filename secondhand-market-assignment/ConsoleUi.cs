@@ -165,7 +165,7 @@ public class ConsoleUi
         _currentUser = null;
     }
     
-    //Create Listing 
+    //Manage Listings
 
     private void HandleCreateListing()
     {
@@ -179,7 +179,20 @@ public class ConsoleUi
         
         var listing = _marketplace.CreateListing(_currentUser!, title, description, category, condition, price);
         Console.WriteLine($"Listing \"{listing.Title}\" created successfully!");
-
+    }
+    
+    private void HandleRemoveListing(Listing listing)
+    {
+        try
+        {
+            _marketplace.RemoveListing(_currentUser!, listing);
+            Console.WriteLine($"{listing.Title} successfully removed!");
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.WriteLine($"{listing.Title} failed to remove listing. {e.Message}");
+        }
+        
     }
     
     //Browse Listings
@@ -277,9 +290,5 @@ public class ConsoleUi
     {
         Console.WriteLine("purchase");
     }
-
-    private void HandleRemoveListing(Listing listing)
-    {
-        Console.WriteLine("remove listing");
-    }
+    
 }
