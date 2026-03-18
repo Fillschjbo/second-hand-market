@@ -15,6 +15,8 @@ public class Transaction
     public decimal Price { get; }
     
     public DateTime Date { get; } = DateTime.Now;
+    
+    public Review? Review { get; set;  }
 
 
     public Transaction(User buyer, User seller, Listing listing)

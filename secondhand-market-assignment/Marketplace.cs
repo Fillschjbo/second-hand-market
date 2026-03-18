@@ -90,4 +90,23 @@ public class Marketplace
         
         return transaction;
     }
+
+    public Review LeaveReview(User buyer, Transaction transaction, int rating, string? comment)
+    {
+        if (transaction.Buyer.Username == buyer.Username)
+            throw new InvalidOperationException("cannot leave review on own listing");
+
+
+        if (transaction.Review != null)
+            throw new InvalidOperationException("You have already reviewed this listing");
+
+        if (rating < 1 || rating > 6)
+            throw new InvalidOperationException("Rating must be between 1 and 6");
+
+        var review = new Review(rating, comment, buyer, transaction);
+        transaction.Review = review;
+        transaction.Seller.ReviewsReceived.Add(review);
+        
+        return review;
+    }
 }
