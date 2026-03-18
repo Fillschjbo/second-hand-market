@@ -5,6 +5,7 @@ public class Marketplace
     //user management
     private readonly List<User> _users = new ();
     private readonly List<Listing> _listings = new();
+    private readonly List<Transaction> _transactions = new();
 
     public User Register(string username, string password)
     {
@@ -68,5 +69,25 @@ public class Marketplace
                         (l.Title.ToLower().Contains(lower) || 
                          l.Description.ToLower().Contains(lower)))
             .ToList();
+    }
+    
+    // Purchase
+
+    public Transaction Purchase(User buyer, Listing listing)
+    {
+        if (listing.Seller.Username == buyer.Username)
+            throw new InvalidOperationException("you cannot buy your own listing");
+
+        if (listing.Status == ListingStatus.Sold)
+            throw new InvalidOperationException("this listing has already been sold");
+
+        listing.Status = ListingStatus.Sold;
+
+        var transaction = new Transaction(buyer, listing.Seller, listing);
+        _transactions.Add(transaction);
+        buyer.Purchases.Add(transaction);
+        listing.Seller.Sales.Add(transaction);
+        
+        return transaction;
     }
 }

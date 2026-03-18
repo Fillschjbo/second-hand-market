@@ -6,6 +6,10 @@ public class User
     private string Password { get; set; }
     
     public List<Listing> Listings { get; } = new();
+
+    public List<Transaction> Purchases { get; } = new();
+
+    public List<Transaction> Sales { get; } = new();
     
     public User (string username, string password)
     {

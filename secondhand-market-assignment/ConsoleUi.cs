@@ -286,9 +286,18 @@ public class ConsoleUi
         return;
     }
 
+    
+    //purchases
     private void HandlePurchase(Listing listing)
     {
-        Console.WriteLine("purchase");
+        try
+        {
+            var transaction = _marketplace.Purchase(_currentUser!,  listing);
+            Console.WriteLine("Purchase successful!");
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.WriteLine($"{listing.Title} failed to purchase listing. {e.Message}");}
     }
     
 }
