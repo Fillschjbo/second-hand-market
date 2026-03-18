@@ -153,6 +153,7 @@ public class ConsoleUi
         switch (choice)
         {
             case 1: HandleCreateListing(); break;
+            case 2 : HandleBrowseListings(); break;
             case 5: HandleLogout(); break;
         }
     }
@@ -200,6 +201,31 @@ public class ConsoleUi
             Category category = ReadEnum<Category>("Select Category: ");
             listings = _marketplace.GetListingByCategory(category);
         }
+        ShowListingsTable(listings);
+    }
+    //show listings
+    private void ShowListingsTable(List<Listing> listings)
+    {
+        if (listings.Count == 0)
+        {
+            Console.WriteLine("No listings found!");
+            return;  
+        }
+
+        Console.WriteLine();
+        Console.WriteLine($"{"#", 4} {"Title", -25} {"Category", -22} {"Condition", -10} {"Price", 8}");
+        Console.WriteLine(new string('-', 75));
+
+        for (int i = 0; listings.Count > i; i++)
+        {
+            var l =  listings[i];
+            Console.WriteLine($"{i + 1, -4} {l.Title, -25} {l.Category, -22} {l.Condition, -10} {l.Price, 5:N0} kr");
+        }
+
+        Console.WriteLine();
+        int choice = ReadIntInRange("Select a listing to view: ", 0, listings.Count);
+        if (choice == 0) return;
         
+
     }
 }

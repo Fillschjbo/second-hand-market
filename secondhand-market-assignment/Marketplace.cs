@@ -32,6 +32,7 @@ public class Marketplace
     {
         var listing = new Listing(title, description, category, condition, price, seller);
         seller.Listings.Add(listing);
+        _listings.Add(listing);
         return listing;
     }
     
