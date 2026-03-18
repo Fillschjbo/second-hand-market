@@ -47,7 +47,7 @@ public class Marketplace
     public List<Listing> GetListingByCategory(Category category)
     {
         return _listings
-            .Where(l => l.Status == ListingStatus.Available && l.Category != category)
+            .Where(l => l.Status == ListingStatus.Available && l.Category == category)
             .ToList();
     }
 }
