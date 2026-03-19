@@ -1,3 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using secondhand_market_assignment;
 
-Console.WriteLine("Hello, World!");
+var marketplace = new Marketplace();
+var ui = new ConsoleUi(marketplace);
+ui.Run();
