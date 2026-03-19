@@ -1,0 +1,68 @@
+# Second-Hand Market
+
+A console-based second-hand marketplace application built in C# as part of the Backend Programming course (1st Year, Oslo). Users can register accounts, list items for sale, browse and search listings, purchase items, and leave reviews for sellers.
+
+---
+
+## How to Build and Run
+
+### Prerequisites
+- [.NET 8 SDK](https://dotnet.microsoft.com/download) or later
+
+### Steps
+
+```bash
+# Clone or unzip the project, then navigate to the folder
+cd SecondHandMarket
+
+# Run the application
+dotnet run
+```
+
+No external dependencies or NuGet packages are required.
+
+---
+
+## How to Use
+
+When you start the application you will see the guest menu:
+
+```
+=== Second-Hand Market ===
+1. Register
+2. Log In
+3. Exit
+```
+
+- **Register** to create a new account
+- **Log In** with an existing account
+- Once logged in, use the main menu to create listings, browse, search, purchase items, and view your profile
+
+---
+
+## Project Structure
+
+```
+SecondHandMarket/
+├── Enums.cs          # Category, Condition, ListingStatus enums
+├── User.cs           # User model with profile data and average rating
+├── Listing.cs        # Listing model with auto-incrementing ID
+├── Transaction.cs    # Records a completed purchase between buyer and seller
+├── Review.cs         # Terningkast review left after a purchase
+├── Marketplace.cs    # Core logic: registration, search, purchase, reviews
+├── ConsoleUI.cs      # All console input/output and menu navigation
+└── Program.cs        # Entry point — wires everything together
+```
+
+Design Decisions
+Separation of concerns: Model classes hold data only. Marketplace handles logic. ConsoleUI handles all input/output. No Console.WriteLine in model classes.
+Enums: Used for Category, Condition, and ListingStatus to prevent invalid values and improve readability.
+LINQ: Used in Marketplace for all filtering, searching, and average calculations instead of manual loops.
+Exception handling: Marketplace throws InvalidOperationException for illegal operations (e.g. buying your own listing). ConsoleUI catches these and shows friendly messages.
+No inheritance: No natural "is-a" relationship existed between domain entities, so inheritance was intentionally omitted.
+
+Github project: https://github.com/Fillschjbo/second-hand-market
+
+Use Of AI:
+AI was used to make the ui in the console prettier and easier to read.
+AI was used to help generate a readme file, and make the design reflection shorter and more precise.
