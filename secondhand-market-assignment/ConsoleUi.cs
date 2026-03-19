@@ -155,6 +155,7 @@ public class ConsoleUi
             case 1: HandleCreateListing(); break;
             case 2 : HandleBrowseListings(); break;
             case 3: HandleSearchListingss(); break;
+            case 4: HandleProfile(); break;
             case 5: HandleLogout(); break;
         }
     }
@@ -323,4 +324,50 @@ public class ConsoleUi
         }
     }
     
+    //Profile
+
+    public void HandleProfile()
+    {
+        PrintHeader($"Profile - {_currentUser!.Username}");
+        
+        var avg = _currentUser.GetAverageRating();
+        Console.WriteLine(avg.HasValue ? $"Average Rating: {avg}" : "No reviews Yet");
+
+        Console.WriteLine();
+        Console.WriteLine("1. My Listings");
+        Console.WriteLine("2. My Purchases");
+        Console.WriteLine("3. My Sales");
+        Console.WriteLine("4. Review Comments");
+        Console.WriteLine("5. Go Back");
+        
+        int choice = ReadIntInRange("Select an option: ", 1, 5);
+        switch (choice)
+        {
+            case 1: ShowMyListings(); break;
+            case 2: ShowMyPurchases(); break;
+            case 3: ShowMySales(); break;
+            case 4: ShowMyReviewComments(); break;
+            default: break;
+        }
+    }
+
+    private void ShowMyReviewComments()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShowMySales()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShowMyPurchases()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShowMyListings()
+    {
+        throw new NotImplementedException();
+    }
 }
