@@ -363,7 +363,26 @@ public class ConsoleUi
 
     private void ShowMyPurchases()
     {
-        throw new NotImplementedException();
+        PrintHeader("My Purchases");
+        
+        if (_currentUser!.Purchases.Count == 0)
+        { 
+            Console.WriteLine("No purchases found!");
+        }
+
+        foreach (var t in _currentUser.Purchases)
+        {
+            Console.WriteLine($"[{t.Date:yyyy-MM-dd}] {t.Listing.Title, -25} {t.Price,5:N0} kr  Seller: {t.Seller.Username}");
+
+            if (t.Review != null)
+            {
+                Console.WriteLine($"Your review: {t.Review.Rating}/6" + (t.Review.Comment != null ? $" — \"{t.Review.Comment}\"" : ""));
+            }
+            else
+            {
+                Console.WriteLine("No reviews found!");
+            }
+        }
     }
 
     private void ShowMyListings()
