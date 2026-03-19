@@ -155,6 +155,7 @@ public class ConsoleUi
             case 1: HandleCreateListing(); break;
             case 2 : HandleBrowseListings(); break;
             case 3: HandleSearchListingss(); break;
+            case 4: HandleProfile(); break;
             case 5: HandleLogout(); break;
         }
     }
@@ -323,4 +324,108 @@ public class ConsoleUi
         }
     }
     
+    //Profile
+
+    public void HandleProfile()
+    {
+        PrintHeader($"Profile - {_currentUser!.Username}");
+        
+        var avg = _currentUser.GetAverageRating();
+        Console.WriteLine(avg.HasValue ? $"Average Rating: {avg}" : "No reviews Yet");
+
+        Console.WriteLine();
+        Console.WriteLine("1. My Listings");
+        Console.WriteLine("2. My Purchases");
+        Console.WriteLine("3. My Sales");
+        Console.WriteLine("4. Review Comments");
+        Console.WriteLine("5. Go Back");
+        
+        int choice = ReadIntInRange("Select an option: ", 1, 5);
+        switch (choice)
+        {
+            case 1: ShowMyListings(); break;
+            case 2: ShowMyPurchases(); break;
+            case 3: ShowMySales(); break;
+            case 4: ShowMyReviewComments(); break;
+            default: break;
+        }
+    }
+
+    private void ShowMyReviewComments()
+    {
+        PrintHeader("Reviews I've Received");
+
+        if (_currentUser!.ReviewsReceived.Count == 0)
+        {
+            Console.WriteLine("You have not received any reviews yet.");
+            return;
+        }
+
+        foreach (var r in _currentUser.ReviewsReceived)
+        {
+            Console.WriteLine($"{r.Rating}/6  from {r.Author.Username} [{r.Transaction.Date:yyyy-MM-dd}]");
+            if (r.Comment != null)
+                Console.WriteLine($"{r.Comment}");
+        }
+    }
+
+    private void ShowMySales()
+    {
+        PrintHeader("My Sales");
+
+        if (_currentUser!.Sales.Count == 0)
+        {
+            Console.WriteLine("No sales yet!");
+            return;
+        }
+
+        foreach (var t in _currentUser.Sales)
+        {
+            Console.WriteLine($"  [{t.Date:yyyy-MM-dd}]  {t.Listing.Title,-25}  {t.Price,5:N0} kr  Buyer: {t.Buyer.Username}");
+        }
+    }
+
+    private void ShowMyPurchases()
+    {
+        PrintHeader("My Purchases");
+        
+        if (_currentUser!.Purchases.Count == 0)
+        { 
+            Console.WriteLine("No purchases found!");
+        }
+
+        foreach (var t in _currentUser.Purchases)
+        {
+            Console.WriteLine($"[{t.Date:yyyy-MM-dd}] {t.Listing.Title, -25} {t.Price,5:N0} kr  Seller: {t.Seller.Username}");
+
+            if (t.Review != null)
+            {
+                Console.WriteLine($"Your review: {t.Review.Rating}/6" + (t.Review.Comment != null ? $" — \"{t.Review.Comment}\"" : ""));
+            }
+            else
+            {
+                Console.WriteLine("No reviews found!");
+            }
+        }
+    }
+
+    private void ShowMyListings()
+    {
+        PrintHeader($"My Listings");
+        
+        if (_currentUser!.Listings.Count == 0)
+        {
+            Console.WriteLine("No listings found!");
+            return;
+        }
+
+        Console.WriteLine($" {"#", -4} {"Title", -25} {"Category", -22} {"Price", 8} {"Status"}");
+        Console.WriteLine(new string('-', 75));
+
+        for (int i = 0; i < _currentUser.Listings.Count; i++)
+        {
+         var l = _currentUser.Listings[i];
+         Console.WriteLine($"  {i + 1,-4} {l.Title,-25} {l.Category,-22} {l.Price,5:N0} kr  {l.Status}");
+        }
+    }
 }
