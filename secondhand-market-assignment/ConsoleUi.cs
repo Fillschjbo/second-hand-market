@@ -358,7 +358,18 @@ public class ConsoleUi
 
     private void ShowMySales()
     {
-        throw new NotImplementedException();
+        PrintHeader("My Sales");
+
+        if (_currentUser!.Sales.Count == 0)
+        {
+            Console.WriteLine("No sales yet!");
+            return;
+        }
+
+        foreach (var t in _currentUser.Sales)
+        {
+            Console.WriteLine($"  [{t.Date:yyyy-MM-dd}]  {t.Listing.Title,-25}  {t.Price,5:N0} kr  Buyer: {t.Buyer.Username}");
+        }
     }
 
     private void ShowMyPurchases()
