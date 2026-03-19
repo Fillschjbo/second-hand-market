@@ -353,7 +353,20 @@ public class ConsoleUi
 
     private void ShowMyReviewComments()
     {
-        throw new NotImplementedException();
+        PrintHeader("Reviews I've Received");
+
+        if (_currentUser!.ReviewsReceived.Count == 0)
+        {
+            Console.WriteLine("You have not received any reviews yet.");
+            return;
+        }
+
+        foreach (var r in _currentUser.ReviewsReceived)
+        {
+            Console.WriteLine($"{r.Rating}/6  from {r.Author.Username} [{r.Transaction.Date:yyyy-MM-dd}]");
+            if (r.Comment != null)
+                Console.WriteLine($"{r.Comment}");
+        }
     }
 
     private void ShowMySales()
