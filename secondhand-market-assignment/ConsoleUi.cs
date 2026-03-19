@@ -368,6 +368,21 @@ public class ConsoleUi
 
     private void ShowMyListings()
     {
-        throw new NotImplementedException();
+        PrintHeader($"My Listings");
+        
+        if (_currentUser!.Listings.Count == 0)
+        {
+            Console.WriteLine("No listings found!");
+            return;
+        }
+
+        Console.WriteLine($" {"#", -4} {"Title", -25} {"Category", -22} {"Price", 8} {"Status"}");
+        Console.WriteLine(new string('-', 75));
+
+        for (int i = 0; i < _currentUser.Listings.Count; i++)
+        {
+         var l = _currentUser.Listings[i];
+         Console.WriteLine($"  {i + 1,-4} {l.Title,-25} {l.Category,-22} {l.Price,5:N0} kr  {l.Status}");
+        }
     }
 }
